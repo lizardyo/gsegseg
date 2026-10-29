@@ -1,0 +1,19 @@
+name: Build
+on: workflow_dispatch
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: zbx1425/NeoMTR
+          ref: bff81eb22a19e9c90c65670d3ffad6c5b6eab035
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+      - run: chmod +x gradlew && ./gradlew build -PbuildVersion=1.21.1 -Pvariation=lifts
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Modern-Elevators-Escalators-NeoForge-1.21.1
+          path: build/release/*.jar
